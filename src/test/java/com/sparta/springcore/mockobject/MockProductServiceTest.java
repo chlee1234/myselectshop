@@ -2,6 +2,7 @@ package com.sparta.springcore.mockobject;
 
 import com.sparta.springcore.dto.ProductMypriceRequestDto;
 import com.sparta.springcore.model.Product;
+import com.sparta.springcore.repository.FolderRepository;
 import com.sparta.springcore.repository.ProductRepository;
 import com.sparta.springcore.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +20,9 @@ class ProductServiceTest {
     @Mock
     ProductRepository productRepository;
 
+    @Mock
+    FolderRepository folderRepository;
+
     @Test
     @DisplayName("관심 상품 희망가 - 최저가 이상으로 변경")
     void updateProduct_Normal() {
@@ -30,7 +34,7 @@ class ProductServiceTest {
                 myprice
         );
 
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
 
 // when
         Product result = productService.updateProduct(productId, requestMyPriceDto);
@@ -50,7 +54,7 @@ class ProductServiceTest {
                 myprice
         );
 
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
 
 // when
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
