@@ -21,14 +21,19 @@ public class ApiUseTime {
     private Users user;
 
     @Column(nullable = false)
-    private Long totalTime;
+    private Long totalTime; // API 총 사용시간
+
+    @Column(nullable = false, columnDefinition = "bigint default 0")
+    private Long totalCount; // API 총 호출횟수
 
     public ApiUseTime(Users user, long totalTime) {
         this.user = user;
         this.totalTime = totalTime;
+        this.totalCount = 1L;
     }
 
     public void addUseTime(long useTime) {
         this.totalTime += useTime;
+        this.totalCount += 1L;
     }
 }
